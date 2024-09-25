@@ -28,3 +28,40 @@ export const EDITAIS_QUERY = gql`
     }
   }
 `;
+
+export const POSTS_QUERY = gql`
+  query Posts($categoryName: String!) {
+    postsConnection(
+      where: { categories_some: { name_contains: $categoryName } }
+    ) {
+      edges {
+        node {
+          author {
+            bio
+            name
+            id
+            photoProfile {
+              url
+            }
+          }
+          createdAt
+          updatedAt
+          excerpt
+          slug
+          title
+          featuredImage {
+            url
+          }
+          categories {
+            name
+            slug
+          }
+          content {
+            text
+            markdown
+          }
+        }
+      }
+    }
+  }
+`
