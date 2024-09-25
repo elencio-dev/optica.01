@@ -1,6 +1,6 @@
 import { GraphQLClient, gql } from 'graphql-request';
 
-const ApiUrl = process.env.VITE_API_URL;
+const ApiUrl = process.env.NEXT_PUBLIC_GRAPHCMS_URL;
 
 if (!ApiUrl) {
   throw new Error('A variável de ambiente não está definida');
