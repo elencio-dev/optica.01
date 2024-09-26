@@ -4,7 +4,7 @@ const nextConfig = {
         remotePatterns: [
             {
                 protocol: 'https',
-                hostname: 'cdn.pixabay.com',
+                hostname: 'media.graphassets.com',
                 port: '', // Deixe vazio se não houver porta
                 pathname: '/**', // Permite todos os caminhos
             },
