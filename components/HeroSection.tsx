@@ -6,13 +6,20 @@ import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import { usePostsStore } from "@/store/usePostagensStore";
 import { useEffect } from "react";
 import { dateFormatter } from "@/shared/utils/dateFormatter";
+import { Post } from "@/shared/types/Postagens";
 
-export default function Herosection(){
-    const { fetchPosts, postsContent } = usePostsStore()
+interface CardPostagemProps {
+  cachedPosts: Post[];
+}
+
+export default function Herosection({ cachedPosts }: CardPostagemProps){
+const { postsContent, initializePosts} = usePostsStore()
 
     useEffect(() => {
-      fetchPosts("Web Development")
-    }, [fetchPosts])
+        if (postsContent.length === 0) {
+          initializePosts(cachedPosts); // Inicializa posts com os dados cacheados
+        }
+      }, [cachedPosts, initializePosts, postsContent.length]);
 
     return (
         <Swiper

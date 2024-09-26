@@ -31,5 +31,5 @@ interface PostCategory {
   
   export interface PostsState {
     postsContent: Post[];
-    fetchPosts: (categoryName: string) => Promise<void>;
+    initializePosts: (cachedPosts: Post[]) => void; 
   }

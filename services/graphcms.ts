@@ -65,3 +65,37 @@ export const POSTS_QUERY = gql`
     }
   }
 `
+
+
+export const MEMBROS_QUERY = gql`
+query MyQuery {
+  membersConnection (first: 100){
+    edges {
+      node {
+        ativo
+        cargo
+        createdAt
+        cvLattes
+        fotoPerfil {
+          url
+        }
+        nome
+      }
+    }
+  }
+}
+`
+
+const GALERIA_QUERY = gql`
+  query MyQuery {
+    galeriasConnection(first: 100) {
+      edges {
+        node {
+          fotoschapter {
+            url
+          }
+        }
+      }
+    }
+  }
+`;
