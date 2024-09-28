@@ -1,3 +1,9 @@
+export interface Attachment {
+  fileName: string;
+  size: number;
+  url: string;
+}
+
 export interface Edital {
     createdAt: string;
     updatedAt: string;
@@ -8,9 +14,12 @@ export interface Edital {
     };
     slug: string;
     title: string;
+    attachments: Attachment[];
 }
 
 export interface EditaisState {
     editaisContent: Edital[];
     fetchEditais: () => Promise<void>;
+    fetchEditalBySlug: (slug: string) => Promise<Edital | null>;
+
 }

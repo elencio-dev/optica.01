@@ -4,6 +4,12 @@ import { graphcms, GALERIA_QUERY } from "@/services/graphcms";
 import { useEffect, useState } from "react";
 import { Fancybox } from '@fancyapps/ui';
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Skeleton } from "@/components/ui/skeleton";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { ImageIcon, FilterIcon } from "lucide-react";
 
 interface GaleriaItem {
     url: string;
@@ -13,6 +19,7 @@ interface GaleriaItem {
 export default function Galeria() {
     const [items, setItems] = useState<GaleriaItem[]>([]);
     const [selectedIdentificador, setSelectedIdentificador] = useState<string | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         const fetchGaleria = async () => {
@@ -22,7 +29,6 @@ export default function Galeria() {
                 const fetchedItems = data.galeriasConnection.edges.flatMap((edge: any) => {
                     const fotoschapter = edge.node.fotoschapter;
                     const identificador = edge.node.identificador;
-                    console.log(identificador);
                     return Array.isArray(fotoschapter)
                         ? fotoschapter.map((foto: { url: string }) => ({
                               url: foto.url,
@@ -31,87 +37,107 @@ export default function Galeria() {
                         : [{ url: fotoschapter.url, identificador: identificador }];
                 });
                 setItems(fetchedItems);
+                setIsLoading(false);
             } catch (error) {
                 console.error('Error fetching gallery items:', error);
+                setIsLoading(false);
             }
         };
 
         fetchGaleria();
 
-        // Inicializa o Fancybox
         Fancybox.bind("[data-fancybox='gallery']", {
-            infinite: true,  // Para permitir navegação infinita na galeria
-            arrows: true,    // Adiciona setas de navegação
+            infinite: true,
+            arrows: true,
+            Toolbar: {
+                display: [
+                    { id: "prev", position: "center" },
+                    { id: "counter", position: "center" },
+                    { id: "next", position: "center" },
+                    "zoom",
+                    "slideshow",
+                    "fullscreen",
+                    "download",
+                    "thumbs",
+                    "close",
+                ],
+            },
         });
 
         return () => {
-            Fancybox.destroy();  // Destrói a instância do Fancybox ao desmontar o componente
+            Fancybox.destroy();
         };
     }, []);
 
-    // Função para filtrar os itens com base no identificador selecionado
     const filteredItems = selectedIdentificador
         ? items.filter((item) => item.identificador === selectedIdentificador)
         : items;
 
-    // Coletar identificadores únicos para os badges
     const uniqueIdentificadores = Array.from(new Set(items.map((item) => item.identificador)));
 
     return (
         <div className="max-w-7xl mx-auto p-6">
-            {/* Badges de identificadores */}
-            <div className="mb-6 flex flex-wrap justify-center gap-4">
-                {/* Badge para resetar o filtro e mostrar todas as fotos */}
-                <button
-                    onClick={() => setSelectedIdentificador(null)}
-                    className={`py-2 px-5 rounded-full text-white font-medium bg-gray-700 hover:bg-gray-900 transition-all duration-300 ${
-                        !selectedIdentificador ? "bg-gray-900" : ""
-                    }`}
-                >
-                    Todas as Fotos
-                </button>
-                {uniqueIdentificadores.map((identificador, index) => (
-                    <button
-                        key={index}
-                        onClick={() => setSelectedIdentificador(identificador)}
-                        className={`py-2 px-5 rounded-full text-white font-medium transition-all duration-300 ${
-                            identificador === "Dia da Luz"
-                                ? "bg-purple-600 hover:bg-purple-800"
-                                : "bg-violet-600 hover:bg-violet-800"
-                        } ${
-                            selectedIdentificador === identificador
-                                ? "opacity-100"
-                                : "opacity-80"
-                        }`}
+            <h1 className="text-3xl font-bold text-center mb-8">Galeria de Fotos</h1>
+            
+            <ScrollArea className="w-full whitespace-nowrap rounded-md border mb-6">
+                <div className="flex space-x-4 p-4">
+                    <Button
+                        variant={selectedIdentificador === null ? "default" : "outline"}
+                        onClick={() => setSelectedIdentificador(null)}
                     >
-                        {identificador}
-                    </button>
-                ))}
-            </div>
-
-            {/* Galeria de imagens */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                {filteredItems.map((item, index) => (
-                    <div key={index} className="relative group">
-                        <a
-                            data-fancybox="gallery"  // Para agrupar as imagens no Fancybox
-                            href={item.url}
-                            data-caption={`Imagem ${index + 1}: Identificador - ${item.identificador}`}
-                            className="block overflow-hidden rounded-lg shadow-lg"
+                        <FilterIcon className="mr-2 h-4 w-4" />
+                        Todas as Fotos
+                    </Button>
+                    {uniqueIdentificadores.map((identificador, index) => (
+                        <Button
+                            key={index}
+                            variant={selectedIdentificador === identificador ? "default" : "outline"}
+                            onClick={() => setSelectedIdentificador(identificador)}
                         >
-                            <img
-                                src={item.url}
-                                alt={`Imagem ${index + 1}`}
-                                className="w-full h-60 object-cover transform transition-transform duration-300 group-hover:scale-105"
-                            />
-                        </a>
-                        <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-0 group-hover:opacity-80 transition-opacity duration-300"></div>
-                        <p className="absolute bottom-4 left-4 text-white text-lg font-semibold z-10">
-                            {item.identificador}
-                        </p>
-                    </div>
-                ))}
-            </div>
+                            {identificador}
+                        </Button>
+                    ))}
+                </div>
+            </ScrollArea>
+
+            {isLoading ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                    {[...Array(8)].map((_, index) => (
+                        <Card key={index}>
+                            <CardContent className="p-0">
+                                <Skeleton className="h-60 w-full" />
+                            </CardContent>
+                        </Card>
+                    ))}
+                </div>
+            ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                    {filteredItems.map((item, index) => (
+                        <Card key={index} className="overflow-hidden group">
+                            <CardContent className="p-0 relative">
+                                <a
+                                    data-fancybox="gallery"
+                                    href={item.url}
+                                    data-caption={`Imagem ${index + 1}: ${item.identificador}`}
+                                    className="block"
+                                >
+                                    <img
+                                        src={item.url}
+                                        alt={`Imagem ${index + 1}`}
+                                        className="w-full h-60 object-cover transition-transform duration-300 group-hover:scale-105"
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                                        <Badge variant="secondary" className="text-sm">
+                                            <ImageIcon className="w-4 h-4 mr-2" />
+                                            {item.identificador}
+                                        </Badge>
+                                    </div>
+                                </a>
+                            </CardContent>
+                        </Card>
+                    ))}
+                </div>
+            )}
         </div>
     );
 }

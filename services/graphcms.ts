@@ -23,6 +23,11 @@ export const EDITAIS_QUERY = gql`
             text
             markdown
           }
+             attachments {
+             fileName
+             size
+             url(transformation: {document: {output: {format: png}}})
+          }
         }
       }
     }
@@ -95,6 +100,34 @@ export const GALERIA_QUERY = gql`
             url
           }
           identificador
+        }
+      }
+    }
+  }
+`;
+
+
+export const EDITAL_BY_SLUG_QUERY = gql`
+  query Editais ($slug: String!) {
+    editalConnection (where: { slug: $slug }) {
+      edges {
+        node {
+          createdAt
+          excerpt
+          id
+          slug
+          title
+          updatedAt
+          content {
+            text
+            markdown
+          }
+          attachments {
+             fileName
+             size
+             url(transformation: {document: {output: {format: png}}})
+          }
+       
         }
       }
     }
