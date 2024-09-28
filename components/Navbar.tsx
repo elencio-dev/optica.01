@@ -9,12 +9,9 @@ import Logo from '../assets/Logo.png';
 
 const menuItems = [
     { name: 'MEMBROS', href: '/membros' },
-    { name: 'PUBLICAÇÕES', href: '/publicações' },
     { name: 'GALERIA', href: '/galeria' },
     { name: 'EDITAIS', href: '/editais' },
-    { name: 'EVENTOS', href: '/eventos' },
     { name: 'SOBRE', href: '/sobre' },
-    { name: 'FAZER PARTE', href: '/inscreva-se' },
 ];
 
 export default function Header() {
