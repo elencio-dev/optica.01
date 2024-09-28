@@ -86,7 +86,7 @@ query MyQuery {
 }
 `
 
-const GALERIA_QUERY = gql`
+export const GALERIA_QUERY = gql`
   query MyQuery {
     galeriasConnection(first: 100) {
       edges {
@@ -94,6 +94,7 @@ const GALERIA_QUERY = gql`
           fotoschapter {
             url
           }
+          identificador
         }
       }
     }
