@@ -5,7 +5,7 @@ import { getPosts } from "./Posts/actions/getPosts";
 
 
 export default async function Home() {
-  const cachedPosts = await getPosts("Web Development"); 
+  const cachedPosts = await getPosts("unilabstudentchapter"); 
 
   return (
     <div className="flex mx-auto justify-items-center min-h-screen">

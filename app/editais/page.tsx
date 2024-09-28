@@ -11,13 +11,13 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { CalendarIcon, FileTextIcon, TagIcon } from "lucide-react";
 
 export default function Editais() {
-  const { editaisContent, fetchEditais, isLoading } = useEditaisStore();
+  const { editaisContent, fetchEditais } = useEditaisStore();
 
   useEffect(() => {
     fetchEditais();
   }, [fetchEditais]);
 
-  if (isLoading) {
+  if (!editaisContent) {
     return (
       <div className="py-8 max-w-7xl mx-auto px-4">
         <Skeleton className="h-10 w-1/3 mb-6" />

@@ -9,6 +9,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { FileIcon, CalendarIcon, RefreshCwIcon } from "lucide-react";
+import { Attachment } from "@/shared/types/Edital";
 
 export default function EditalPage({ params }: { params: { slug: string } }) {
   const { editaisContent, fetchEditais } = useEditaisStore();
@@ -48,7 +49,7 @@ export default function EditalPage({ params }: { params: { slug: string } }) {
             {edital.attachments && edital.attachments.length > 0 ? (
               <ScrollArea className="h-[300px] w-full pr-4">
                 <ul className="space-y-2">
-                  {edital.attachments.map((attachment: any, index: number) => (
+                  {edital.attachments.map((attachment: Attachment, index: number) => (
                     <li key={index}>
                       <Button
                         variant="outline"

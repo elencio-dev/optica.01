@@ -9,12 +9,19 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { ExternalLink, User } from "lucide-react";
 
+interface GraphCMSMembersResponse {
+  membersConnection: {
+    edges: {
+      node: MembroType;
+    }[];
+  };
+}
+
 const getCachedMembros = unstable_cache(
   async () => {
     try {
-      const data = await graphcms.request(MEMBROS_QUERY);
-      //@ts-ignore
-      const membersList = data.membersConnection.edges.map((edge: any) => edge.node);
+      const data: GraphCMSMembersResponse= await graphcms.request(MEMBROS_QUERY);
+      const membersList = data.membersConnection.edges.map((edge) => edge.node);
       return membersList;
     } catch (error) {
       console.error("Erro ao buscar membros:", error);

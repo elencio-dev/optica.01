@@ -10,11 +10,20 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { ImageIcon, FilterIcon } from "lucide-react";
+import Image from "next/image";
 
 interface GaleriaItem {
     url: string;
     identificador: string;
 }
+
+interface GraphCMSGaleriaResponse {
+    galeriasConnection: {
+      edges: {
+        node: GaleriaItem;
+      }[];
+    };
+  }
 
 export default function Galeria() {
     const [items, setItems] = useState<GaleriaItem[]>([]);
@@ -24,16 +33,17 @@ export default function Galeria() {
     useEffect(() => {
         const fetchGaleria = async () => {
             try {
-                const data = await graphcms.request(GALERIA_QUERY);
-                //@ts-ignore
-                const fetchedItems = data.galeriasConnection.edges.flatMap((edge: any) => {
+                const data: GraphCMSGaleriaResponse = await graphcms.request(GALERIA_QUERY);
+                
+                const fetchedItems = (data).galeriasConnection.edges.flatMap((edge) => {
+                    //@ts-ignore
                     const fotoschapter = edge.node.fotoschapter;
                     const identificador = edge.node.identificador;
                     return Array.isArray(fotoschapter)
                         ? fotoschapter.map((foto: { url: string }) => ({
-                              url: foto.url,
-                              identificador: identificador,
-                          }))
+                            url: foto.url,
+                            identificador: identificador,
+                        }))
                         : [{ url: fotoschapter.url, identificador: identificador }];
                 });
                 setItems(fetchedItems);
@@ -45,23 +55,9 @@ export default function Galeria() {
         };
 
         fetchGaleria();
-
+        //@ts-ignore
         Fancybox.bind("[data-fancybox='gallery']", {
-            infinite: true,
-            arrows: true,
-            Toolbar: {
-                display: [
-                    { id: "prev", position: "center" },
-                    { id: "counter", position: "center" },
-                    { id: "next", position: "center" },
-                    "zoom",
-                    "slideshow",
-                    "fullscreen",
-                    "download",
-                    "thumbs",
-                    "close",
-                ],
-            },
+            infinite: false,
         });
 
         return () => {
@@ -78,7 +74,7 @@ export default function Galeria() {
     return (
         <div className="max-w-7xl mx-auto p-6">
             <h1 className="text-3xl font-bold text-center mb-8">Galeria de Fotos</h1>
-            
+
             <ScrollArea className="w-full whitespace-nowrap rounded-md border mb-6">
                 <div className="flex space-x-4 p-4">
                     <Button
@@ -118,12 +114,15 @@ export default function Galeria() {
                                 <a
                                     data-fancybox="gallery"
                                     href={item.url}
-                                    data-caption={`Imagem ${index + 1}: ${item.identificador}`}
+                                    data-caption={`${item.identificador}`}
                                     className="block"
                                 >
-                                    <img
+                                    <Image
                                         src={item.url}
                                         alt={`Imagem ${index + 1}`}
+                                        width={400}
+                                        height={300}
+                                        quality={85}
                                         className="w-full h-60 object-cover transition-transform duration-300 group-hover:scale-105"
                                     />
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">

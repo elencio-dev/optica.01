@@ -16,7 +16,7 @@ interface CardPostagemProps {
 }
 
 export default function CardPostagem({ cachedPosts }: CardPostagemProps) {
-  const { postsContent, initializePosts, isLoading } = usePostsStore();
+  const { postsContent, initializePosts } = usePostsStore();
 
   useEffect(() => {
     if (postsContent.length === 0) {
@@ -24,7 +24,7 @@ export default function CardPostagem({ cachedPosts }: CardPostagemProps) {
     }
   }, [cachedPosts, initializePosts, postsContent.length]);
 
-  if (isLoading) {
+  if (!postsContent) {
     return (
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 my-12 px-4">
         {[...Array(6)].map((_, index) => (
@@ -68,7 +68,7 @@ export default function CardPostagem({ cachedPosts }: CardPostagemProps) {
             </p>
             <div className="flex flex-wrap gap-2 mb-4">
               {postagem.categories?.map((category, idx) => (
-                <Badge key={idx} variant="secondary">
+                <Badge key={idx} variant="secondary" className="text-gray-300">
                   {category.name}
                 </Badge>
               ))}
@@ -79,7 +79,6 @@ export default function CardPostagem({ cachedPosts }: CardPostagemProps) {
                 {new Date(postagem.createdAt).toLocaleDateString()}
               </time>
               <ClockIcon className="ml-4 mr-2 h-4 w-4" />
-              <span>{postagem.readingTime || '5 min'} leitura</span>
             </div>
           </CardContent>
           <CardFooter>
