@@ -3,9 +3,22 @@
 import Image from 'next/image'
 import { Outlet } from 'react-router-dom'
 import BackGroundImagem from '../../assets/background-CuoDkzZF.jpg'
+import { NextSeo } from 'next-seo'
 
 export default function Sobre() {
   return (
+    <> 
+    <NextSeo
+        title="Sobre"
+        description="Saiba mais sobre o Unilab Student Chapter e a Optica. Oportunidades para estudantes de óptica e fotônica."
+        openGraph={{
+          type: 'website',
+          url: 'https://www.unilabstudentchapter.org/sobre',
+          title: 'Sobre - Unilab Student Chapter',
+          description: 'Saiba mais sobre o Unilab Student Chapter e a Optica. Oportunidades para estudantes de óptica e fotônica.',
+        }}
+      />
+    
     <main>
       <section
         className="h-[60vh] bg-cover bg-center flex items-center justify-center relative overflow-hidden"
@@ -60,5 +73,6 @@ export default function Sobre() {
         <Outlet />
       </section>
     </main>
+    </>
   )
 }

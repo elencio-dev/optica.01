@@ -10,6 +10,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { FileIcon, CalendarIcon, RefreshCwIcon } from "lucide-react";
 import { Attachment } from "@/shared/types/Edital";
+import { NextSeo } from "next-seo";
 
 export default function EditalPage({ params }: { params: { slug: string } }) {
   const { editaisContent, fetchEditais } = useEditaisStore();
@@ -37,6 +38,18 @@ export default function EditalPage({ params }: { params: { slug: string } }) {
   };
 
   return (
+    <>
+     <NextSeo
+        title={edital.title}
+        description={edital.excerpt}
+        openGraph={{
+          type: 'article',
+          url: `https://www.unilabstudentchapter.org/editais/${edital.slug}`,
+          title: edital.title,
+          description: edital.excerpt,
+        }}
+      />
+
     <div className="py-8 max-w-7xl mx-auto px-4">
       <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">{edital.title}</h1>
 
@@ -100,5 +113,6 @@ export default function EditalPage({ params }: { params: { slug: string } }) {
         </Card>
       </div>
     </div>
+    </>
   );
 }
