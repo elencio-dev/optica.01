@@ -5,10 +5,18 @@ const nextConfig = {
             {
                 protocol: 'https',
                 hostname: 'media.graphassets.com',
-                port: '', // Deixe vazio se não houver porta
-                pathname: '/**', // Permite todos os caminhos
+                port: '', 
+                pathname: '/**', 
             },
         ],
+    },
+    async rewrites() {
+        return [
+            {
+                source: "/sitemap.xml",
+                destination: "/sitemap.xml/route",
+            },
+        ];
     },
 };
 

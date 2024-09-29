@@ -5,7 +5,7 @@
 body {
   background-color: #CCCCCC;
   overflow: scroll;
-  scrollbar-width: none; /* For Firefox */
+  scrollbar-width: none; 
   -ms-overflow-style: none;
 }
 
