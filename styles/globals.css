@@ -4,6 +4,13 @@
 
 body {
   background-color: #CCCCCC;
+  overflow: scroll;
+  scrollbar-width: none; /* For Firefox */
+  -ms-overflow-style: none;
+}
+
+html::-webkit-scrollbar {
+  display: none;
 }
 
 @layer base {

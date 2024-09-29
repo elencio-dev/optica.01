@@ -8,10 +8,10 @@ export default async function Home() {
   const cachedPosts = await getPosts("unilabstudentchapter"); 
 
   return (
-    <div className="flex mx-auto justify-items-center min-h-screen">
+    <div className="flex mx-auto justify-items-center">
       <div className="w-full">
         <Herosection cachedPosts={cachedPosts} />
-        <CardPostagem cachedPosts={cachedPosts}/> {/* Componente que renderiza os posts */}
+        <CardPostagem cachedPosts={cachedPosts}/> 
       </div>
     </div>
   );

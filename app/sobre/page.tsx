@@ -6,8 +6,7 @@ import BackGroundImagem from '../../assets/background-CuoDkzZF.jpg'
 
 export default function Sobre() {
   return (
-    <main className="min-h-screen ">
-      {/* Hero Section */}
+    <main>
       <section
         className="h-[60vh] bg-cover bg-center flex items-center justify-center relative overflow-hidden"
         aria-label="Background Image of Unilab Student Chapter"
@@ -24,11 +23,9 @@ export default function Sobre() {
         <div className="absolute inset-0 bg-black opacity-60"></div>
       </section>
 
-      {/* Content Section */}
       <section className="p-4 sm:p-8 max-w-4xl mx-auto">
         <div className="bg-white shadow-xl rounded-lg overflow-hidden">
           <div className="p-6 sm:p-10 space-y-8">
-            {/* About Unilab Student Chapter */}
 
               <h2 className="text-3xl font-semibold mb-4 text-center text-gray-800">Sobre o Unilab Student Chapter</h2>
               <p className="text-gray-600 leading-relaxed mb-4">
