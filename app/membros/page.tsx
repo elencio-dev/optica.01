@@ -2,11 +2,22 @@ import { Membros as MembroType } from '@/shared/types/Membros'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { User } from 'lucide-react'
-import { NextSeo } from 'next-seo'
-import Head from 'next/head'
 import MembroCard from '@/components/MembroCard'
 import { Card } from '@/components/ui/card'
 import { membros } from './actions/getMembros'
+
+export const metadata = {
+  title: 'Nossa Equipe',
+  description: 'Conheça os membros ativos e egressos da nossa equipe.',
+  openGraph: {
+    title: 'Nossa Equipe',
+    description: 'Conheça os membros ativos e egressos da nossa equipe.',
+    url: 'https://www.unilabstudentchapter.org/membros',
+  },
+  twitter: {
+    card: 'summary_large_image',
+  },
+}
 
 export default function Membros() {
   const membrosAtivos = membros.filter((membro: MembroType) => membro.ativo)

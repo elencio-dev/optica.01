@@ -1,12 +1,22 @@
 import Image from 'next/image'
 import BackGroundImagem from '../../assets/background-CuoDkzZF.jpg'
-import { NextSeo } from 'next-seo'
+
+export const metadata = {
+  title: 'Sobre o Unilab Student Chapter',
+  description: 'Saiba mais sobre o Unilab Student Chapter, uma iniciativa dedicada à excelência acadêmica em óptica e fotônica, vinculada à Optica (antiga OSA). Descubra nossas atividades, projetos e oportunidades internacionais para membros.',
+  openGraph: {
+    title: 'Sobre o Unilab Student Chapter',
+    description: 'Saiba mais sobre o Unilab Student Chapter, uma iniciativa dedicada à excelência acadêmica em óptica e fotônica, vinculada à Optica (antiga OSA). Descubra nossas atividades, projetos e oportunidades internacionais para membros.',
+    url: 'https://www.unilabstudentchapter.org/sobre',
+  },
+  twitter: {
+    card: 'summary_large_image',
+  },
+}
 
 export default function Sobre() {
   return (
     <>
-     
-
       <main>
         <section
           className="h-[60vh] bg-cover bg-center flex items-center justify-center relative overflow-hidden"

@@ -15,7 +15,19 @@ import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { CalendarIcon, FileTextIcon, TagIcon } from 'lucide-react'
-import { NextSeo } from 'next-seo'
+
+export const metadata = {
+  title: 'Editais Recentes',
+  description: 'Veja os editais mais recentes e fique atualizado com as novidades.',
+  openGraph: {
+    title: 'Editais Recentes',
+    description: 'Veja os editais mais recentes e fique atualizado com as novidades.',
+    url: 'https://www.unilabstudentchapter.org/editais',
+  },
+  twitter: {
+    card: 'summary_large_image',
+  },
+}
 
 export default function Editais() {
   const { editaisContent, fetchEditais: fetchEditaisFromStore } = useEditaisStore()

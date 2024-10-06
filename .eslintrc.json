@@ -1,10 +1,7 @@
 {
-  "extends": [
-    "@rocketseat/eslint-config/next", 
-    "next/core-web-vitals"
-  ],
+  "extends": ["@rocketseat/eslint-config/next", "next/core-web-vitals"],
   "rules": {
-    "no-unused-vars": "error",
-    "no-undef": "error"
+    "react/no-unescaped-entities": "off",
+    "@next/next/no-page-custom-font": "off"
   }
 }
