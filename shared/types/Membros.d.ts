@@ -7,3 +7,11 @@ export interface Membros {
     cvLattes: string;
     cargo: string;
 }
+
+export interface GraphCMSMembersResponse {
+    membersConnection: {
+      edges: {
+        node: Membros;
+      }[];
+    };
+  }

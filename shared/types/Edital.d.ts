@@ -23,3 +23,18 @@ export interface EditaisState {
     fetchEditalBySlug: (slug: string) => Promise<Edital | null>;
 
 }
+
+
+  
+  export interface EditalResponse {
+    editalConnection: {
+      edges: { node: Edital }[];
+    };
+  }
+  
+  interface PostResponse {
+    postsConnection: {
+      edges: { node: Post }[];
+    };
+  }
+  

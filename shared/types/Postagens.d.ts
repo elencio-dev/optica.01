@@ -2,6 +2,11 @@ interface PostCategory {
     name: string;
     slug: string;
   }
+
+  interface PostSitemap {
+    slug: string;
+    updatedAt: string;
+  }
   
   interface PostAuthor {
     bio: string;
@@ -28,6 +33,14 @@ interface PostCategory {
     };
     categories: PostCategory[];
   }
+
+  export interface GraphCMSPostsResponse {
+    postsConnection: {
+        edges: {
+            node: Post;
+        }[];
+    };
+}
   
   export interface PostsState {
     postsContent: Post[];

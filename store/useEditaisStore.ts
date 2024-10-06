@@ -4,6 +4,7 @@ import { create } from 'zustand';
 
 export const useEditaisStore = create<EditaisState>((set) => ({
   editaisContent: [],
+
   fetchEditais: async () => {
     try {
       const response = await graphcms.request<{
@@ -24,7 +25,6 @@ export const useEditaisStore = create<EditaisState>((set) => ({
       }>(EDITAL_BY_SLUG_QUERY, { slug });
 
       return response.edital;
-     
     } catch (error) {
       console.error(`Erro ao buscar o edital com slug ${slug}:`, error);
       return null;

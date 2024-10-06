@@ -1,28 +1,32 @@
-"use client";
+'use client'
 
-import { useEffect } from "react";
-import { usePostsStore } from "@/store/usePostagensStore";
-import Image from "next/image";
-import Link from "next/link";
-import { Post } from "@/shared/types/Postagens";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Skeleton } from "@/components/ui/skeleton";
-import { CalendarIcon, ClockIcon, ArrowRightIcon } from "lucide-react";
+import { useEffect } from 'react'
+import { usePostsStore } from '@/store/usePostagensStore'
+import Image from 'next/image'
+import Link from 'next/link'
+import { Post } from '@/shared/types/Postagens'
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
+import { Skeleton } from '@/components/ui/skeleton'
+import { CalendarIcon, ClockIcon, ArrowRightIcon } from 'lucide-react'
 
 interface CardPostagemProps {
-  cachedPosts: Post[];
+  cachedPosts: Post[]
 }
 
 export default function CardPostagem({ cachedPosts }: CardPostagemProps) {
-  const { postsContent, initializePosts } = usePostsStore();
+  const { postsContent, initializePosts } = usePostsStore()
 
   useEffect(() => {
-    if (postsContent.length === 0) {
-      initializePosts(cachedPosts);
-    }
-  }, [cachedPosts, initializePosts, postsContent.length]);
+      initializePosts(cachedPosts)
+  }, [cachedPosts, initializePosts, postsContent.length])
 
   if (!postsContent) {
     return (
@@ -43,7 +47,7 @@ export default function CardPostagem({ cachedPosts }: CardPostagemProps) {
           </Card>
         ))}
       </div>
-    );
+    )
   }
 
   return (
@@ -54,7 +58,7 @@ export default function CardPostagem({ cachedPosts }: CardPostagemProps) {
             <div className="relative w-full h-48">
               <Image
                 className="object-cover rounded-t-lg"
-                src={postagem.featuredImage?.url || "/placeholder.svg"}
+                src={postagem.featuredImage?.url || '/placeholder.svg'}
                 alt={`Imagem em destaque do post ${postagem.title}`}
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -62,17 +66,12 @@ export default function CardPostagem({ cachedPosts }: CardPostagemProps) {
             </div>
           </CardHeader>
           <CardContent className="flex-grow p-6">
-            <CardTitle className="text-lg font-bold text-gray-900 mb-2">{postagem.title}</CardTitle>
+            <CardTitle className="text-lg font-bold text-gray-900 mb-2">
+              {postagem.title}
+            </CardTitle>
             <p className="text-gray-700 mb-4">
-              {postagem.excerpt.split(" ").slice(0, 20).join(" ")}...
+              {postagem.excerpt.split(' ').slice(0, 20).join(' ')}...
             </p>
-            <div className="flex flex-wrap gap-2 mb-4">
-              {postagem.categories?.map((category, idx) => (
-                <Badge key={idx} variant="secondary" className="text-gray-300">
-                  {category.name}
-                </Badge>
-              ))}
-            </div>
             <div className="flex items-center text-sm text-gray-500 mb-4">
               <CalendarIcon className="mr-2 h-4 w-4" />
               <time dateTime={postagem.createdAt}>
@@ -91,5 +90,5 @@ export default function CardPostagem({ cachedPosts }: CardPostagemProps) {
         </Card>
       ))}
     </div>
-  );
+  )
 }

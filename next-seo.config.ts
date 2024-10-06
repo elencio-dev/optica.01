@@ -1,4 +1,3 @@
-// next-seo.config.ts
 const SEO = {
     title: "Unilab Student Chapter",
     description: "Unilab Optic Chapter, associado à entidade norte-americana The Optical Society (OSA). Promovemos a geração, aplicação, e disseminação de conhecimento na área de óptica e fotônica.",
