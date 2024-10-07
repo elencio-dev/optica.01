@@ -1,55 +1,81 @@
 import { graphcms, EDITAIS_QUERY, POSTS_QUERY } from '@/services/graphcms'
-
 import { EditalResponse, PostResponse } from '@/shared/types/Edital'
 import { NextResponse } from 'next/server'
 
 export const runtime = 'edge'
 
 export async function GET() {
-  const editalResponse: EditalResponse = await graphcms.request(EDITAIS_QUERY)
-  const postResponse: PostResponse = await graphcms.request(POSTS_QUERY, {
-    categoryName: 'unilabstudentchapter',
-  })
+  try {
+    // Solicitação dos editais
+    const editalResponse: EditalResponse = await graphcms.request(EDITAIS_QUERY)
+    if (!editalResponse || !editalResponse.editalConnection) {
+      throw new Error('Falha ao buscar editais')
+    }
 
-  const staticPages = ['/', '/sobre', '/galeria', '/membros']
+    // Solicitação dos posts
+    const postResponse: PostResponse = await graphcms.request(POSTS_QUERY, {
+      categoryName: 'unilabstudentchapter',
+    })
+    if (!postResponse || !postResponse.postsConnection) {
+      throw new Error('Falha ao buscar posts')
+    }
 
-  const editaisPages = editalResponse.editalConnection.edges.map((edital) => ({
-    url: `https://www.unilabstudentchapter.org//editais/${edital.node.slug}`,
-    lastmod: edital.node.updatedAt,
-  }))
+    // Páginas estáticas
+    const staticPages = ['/', '/sobre', '/galeria', '/membros']
 
-  const postsPages = postResponse.postsConnection.edges.map((post) => ({
-    url: `https://www.unilabstudentchapter.org//posts/${post.node.slug}`,
-    lastmod: post.node.updatedAt,
-  }))
+    // Páginas de editais
+    const editaisPages = editalResponse.editalConnection.edges.map(
+      (edital) => ({
+        url: `https://www.unilabstudentchapter.org/editais/${edital.node.slug}`,
+        lastmod: edital.node.updatedAt,
+      }),
+    )
 
-  const pages = [
-    ...staticPages.map((url) => ({
-      url: `https://www.unilabstudentchapter.org/${url}`,
-      lastmod: new Date().toISOString(),
-    })),
-    ...editaisPages,
-    ...postsPages,
-  ]
+    // Páginas de posts
+    const postsPages = postResponse.postsConnection.edges.map((post) => ({
+      url: `https://www.unilabstudentchapter.org/posts/${post.node.slug}`,
+      lastmod: post.node.updatedAt,
+    }))
 
-  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-      ${pages
-        .map(
-          (page) => `
-          <url>
-            <loc>${page.url}</loc>
-            <lastmod>${page.lastmod}</lastmod>
-          </url>
-        `,
-        )
-        .join('')}
-    </urlset>
-  `
+    // Concatenar todas as páginas
+    const pages = [
+      ...staticPages.map((url) => ({
+        url: `https://www.unilabstudentchapter.org${url}`,
+        lastmod: new Date().toISOString(),
+      })),
+      ...editaisPages,
+      ...postsPages,
+    ]
 
-  return new NextResponse(sitemap, {
-    headers: {
-      'Content-Type': 'application/xml',
-    },
-  })
+    // Construir o sitemap em XML
+    const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+      <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+        ${pages
+          .map(
+            (page) => `
+            <url>
+              <loc>${page.url}</loc>
+              <lastmod>${page.lastmod}</lastmod>
+            </url>
+          `,
+          )
+          .join('')}
+      </urlset>
+    `
+
+    // Retornar o sitemap como resposta
+    return new NextResponse(sitemap, {
+      headers: {
+        'Content-Type': 'application/xml',
+      },
+    })
+  } catch (error) {
+    console.error('Erro ao gerar o sitemap:', error)
+    return new NextResponse('<error>Falha ao gerar o sitemap</error>', {
+      headers: {
+        'Content-Type': 'application/xml',
+      },
+      status: 500,
+    })
+  }
 }

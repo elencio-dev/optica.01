@@ -8,6 +8,8 @@ export const generateMetadata = async ({
 }) => {
   const post = await getPostBySlug(params.slug)
 
+  console.log(post)
+
   if (!post) {
     return {
       title: 'Postagem não encontrada',
