@@ -1,3 +1,5 @@
+'use server'
+
 import { unstable_cache as unstableCache } from 'next/cache'
 import { graphcms, POSTS_QUERY } from '@/services/graphcms'
 import { GraphCMSPostsResponse } from '@/shared/types/Postagens'

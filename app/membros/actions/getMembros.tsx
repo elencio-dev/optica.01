@@ -1,3 +1,5 @@
+'use server'
+
 import { GraphCMSMembersResponse } from '@/shared/types/Membros'
 import { unstable_cache as unstableCache } from 'next/cache'
 import { graphcms, MEMBROS_QUERY } from '@/services/graphcms'
