@@ -70,6 +70,40 @@ export const POSTS_QUERY = gql`
     }
   }
 `
+export const POST_BY_SLUG_QUERY = gql`
+  query PostBySlug($slug: String!) {
+    postsConnection(where: { slug: $slug }) {
+      edges {
+        node {
+          author {
+            bio
+            name
+            id
+            photoProfile {
+              url
+            }
+          }
+          createdAt
+          updatedAt
+          excerpt
+          slug
+          title
+          featuredImage {
+            url
+          }
+          categories {
+            name
+            slug
+          }
+          content {
+            text
+            markdown
+          }
+        }
+      }
+    }
+  }
+`
 
 export const MEMBROS_QUERY = gql`
   query MyQuery {
