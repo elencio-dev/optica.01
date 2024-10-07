@@ -1,6 +1,4 @@
-import CardPostagem from '@/components/CardPostagem'
-import Herosection from '@/components/HeroSection'
-import { cachedPosts } from './Posts/actions/getPosts'
+import Home from './Home'
 
 export const metadata = {
   title: 'Unilab Student Chapter - Página Inicial',
@@ -17,15 +15,6 @@ export const metadata = {
   },
 }
 
-export default function Home() {
-  return (
-    <>
-      <div className="flex mx-auto justify-items-center">
-        <div className="w-full">
-          <Herosection cachedPosts={cachedPosts} />
-          <CardPostagem cachedPosts={cachedPosts} />
-        </div>
-      </div>
-    </>
-  )
+export default async function Page() {
+  return <Home />
 }
