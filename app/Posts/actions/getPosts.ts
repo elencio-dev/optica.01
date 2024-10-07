@@ -4,6 +4,7 @@ import { unstable_cache as unstableCache } from 'next/cache'
 import { graphcms, POSTS_QUERY } from '@/services/graphcms'
 import { GraphCMSPostsResponse } from '@/shared/types/Postagens'
 
+// Função para obter os posts com cache usando unstable_cache
 const getPosts = unstableCache(
   async (categoryName: string) => {
     try {
@@ -18,7 +19,10 @@ const getPosts = unstableCache(
     }
   },
   ['posts'],
-  { revalidate: 3600 },
+  { revalidate: 3600 }, // Cache revalidado a cada 1 hora
 )
 
-export const cachedPosts = await getPosts('unilabstudentchapter')
+// Função que pode ser usada para obter os posts de maneira cacheada
+export async function getCachedPosts(categoryName: string) {
+  return await getPosts(categoryName)
+}

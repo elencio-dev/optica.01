@@ -4,7 +4,8 @@ import { GraphCMSMembersResponse } from '@/shared/types/Membros'
 import { unstable_cache as unstableCache } from 'next/cache'
 import { graphcms, MEMBROS_QUERY } from '@/services/graphcms'
 
-const getCachedMembros = unstableCache(
+// Função para obter os membros e cachear os resultados
+export const getCachedMembros = unstableCache(
   async () => {
     try {
       const data: GraphCMSMembersResponse =
@@ -17,7 +18,9 @@ const getCachedMembros = unstableCache(
     }
   },
   ['members'],
-  { revalidate: 3600 },
+  { revalidate: 3600 }, // Cache é revalidado a cada 1 hora
 )
 
-export const membros = await getCachedMembros()
+export async function getMembros() {
+  return await getCachedMembros()
+}
