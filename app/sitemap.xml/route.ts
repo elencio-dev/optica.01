@@ -26,15 +26,15 @@ export async function GET() {
     // Páginas de editais
     const editaisPages = editalResponse.editalConnection.edges.map(
       (edital) => ({
-        url: `https://www.unilabstudentchapter.org/editais/${edital.node.slug}`,
-        lastmod: edital.node.updatedAt,
+        url: `https://www.unilabstudentchapter.org/editais/${encodeURIComponent(edital.node.slug)}`,
+        lastmod: new Date(edital.node.updatedAt).toISOString(),
       }),
     )
 
     // Páginas de posts
     const postsPages = postResponse.postsConnection.edges.map((post) => ({
-      url: `https://www.unilabstudentchapter.org/posts/${post.node.slug}`,
-      lastmod: post.node.updatedAt,
+      url: `https://www.unilabstudentchapter.org/posts/${encodeURIComponent(post.node.slug)}`,
+      lastmod: new Date(post.node.updatedAt).toISOString(),
     }))
 
     // Concatenar todas as páginas
@@ -53,18 +53,18 @@ export async function GET() {
         ${pages
           .map(
             (page) => `
-            <url>
-              <loc>${page.url}</loc>
-              <lastmod>${page.lastmod}</lastmod>
-            </url>
-          `,
+              <url>
+                <loc>${page.url}</loc>
+                <lastmod>${page.lastmod}</lastmod>
+              </url>
+            `,
           )
           .join('')}
       </urlset>
     `
 
     // Retornar o sitemap como resposta
-    return new NextResponse(sitemap, {
+    return new NextResponse(sitemap.trim(), {
       headers: {
         'Content-Type': 'application/xml',
       },
