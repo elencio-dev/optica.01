@@ -3,10 +3,12 @@ import BackGroundImagem from '../../assets/background-CuoDkzZF.jpg'
 
 export const metadata = {
   title: 'Sobre o Unilab Student Chapter',
-  description: 'Saiba mais sobre o Unilab Student Chapter, uma iniciativa dedicada à excelência acadêmica em óptica e fotônica, vinculada à Optica (antiga OSA). Descubra nossas atividades, projetos e oportunidades internacionais para membros.',
+  description:
+    'Saiba mais sobre o Unilab Student Chapter, uma iniciativa dedicada à excelência acadêmica em óptica e fotônica, vinculada à Optica (antiga OSA). Descubra nossas atividades, projetos e oportunidades internacionais para membros.',
   openGraph: {
     title: 'Sobre o Unilab Student Chapter',
-    description: 'Saiba mais sobre o Unilab Student Chapter, uma iniciativa dedicada à excelência acadêmica em óptica e fotônica, vinculada à Optica (antiga OSA). Descubra nossas atividades, projetos e oportunidades internacionais para membros.',
+    description:
+      'Saiba mais sobre o Unilab Student Chapter, uma iniciativa dedicada à excelência acadêmica em óptica e fotônica, vinculada à Optica (antiga OSA). Descubra nossas atividades, projetos e oportunidades internacionais para membros.',
     url: 'https://www.unilabstudentchapter.org/sobre',
   },
   twitter: {

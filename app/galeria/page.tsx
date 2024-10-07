@@ -1,11 +1,13 @@
-import GaleriaPage from "./GaleriaPage"
+import GaleriaPage from './GaleriaPage'
 
 export const metadata = {
   title: 'Galeria de Fotos',
-  description: 'Explore a galeria de fotos com diversas imagens capturadas em eventos e momentos especiais.',
+  description:
+    'Explore a galeria de fotos com diversas imagens capturadas em eventos e momentos especiais.',
   openGraph: {
     title: 'Galeria de Fotos',
-    description: 'Explore a galeria de fotos com diversas imagens capturadas em eventos e momentos especiais.',
+    description:
+      'Explore a galeria de fotos com diversas imagens capturadas em eventos e momentos especiais.',
     url: 'https://www.unilabstudentchapter.org/galeria',
   },
   twitter: {
@@ -14,5 +16,5 @@ export const metadata = {
 }
 
 export default function Page() {
-  return <GaleriaPage/>
+  return <GaleriaPage />
 }

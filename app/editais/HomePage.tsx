@@ -17,11 +17,12 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import { CalendarIcon, FileTextIcon, TagIcon } from 'lucide-react'
 
 export default function HomePage() {
-  const { editaisContent, fetchEditais: fetchEditaisFromStore } = useEditaisStore()
+  const { editaisContent, fetchEditais: fetchEditaisFromStore } =
+    useEditaisStore()
 
   const fetchEditais = useCallback(() => {
-    fetchEditaisFromStore();
-  }, [fetchEditaisFromStore]);
+    fetchEditaisFromStore()
+  }, [fetchEditaisFromStore])
 
   useEffect(() => {
     fetchEditais()
@@ -52,7 +53,6 @@ export default function HomePage() {
 
   return (
     <>
-  
       <div className="py-8 max-w-7xl mx-auto px-4">
         <h2 className="text-3xl font-bold text-gray-900 mb-6">
           Editais Recentes

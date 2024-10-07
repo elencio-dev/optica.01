@@ -27,17 +27,17 @@ export default function Herosection({ cachedPosts }: CardPostagemProps) {
   return (
     <div className="relative w-full h-[600px]">
       <Swiper
-       spaceBetween={0}
-       pagination={{
-         clickable: true,
-       }}
-       navigation={{
-         nextEl: '.swiper-button-next',
-         prevEl: '.swiper-button-prev',
-       }}
-       autoplay={{ delay: 5000, disableOnInteraction: false }}
-       modules={[Navigation, Pagination, Autoplay]}
-       className="h-full"
+        spaceBetween={0}
+        pagination={{
+          clickable: true,
+        }}
+        navigation={{
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        }}
+        autoplay={{ delay: 5000, disableOnInteraction: false }}
+        modules={[Navigation, Pagination, Autoplay]}
+        className="h-full"
       >
         {postsContent.map((slide, index) => (
           <SwiperSlide key={index}>
@@ -79,24 +79,24 @@ export default function Herosection({ cachedPosts }: CardPostagemProps) {
       </Swiper>
 
       <div className="swiper-button-prev !text-white !opacity-75 hover:!opacity-100 transition-opacity duration-300"></div>
-  <div className="swiper-button-next !text-white !opacity-75 hover:!opacity-100 transition-opacity duration-300"></div>
+      <div className="swiper-button-next !text-white !opacity-75 hover:!opacity-100 transition-opacity duration-300"></div>
 
-  <style jsx global>{`
-    .swiper-pagination-bullet {
-      width: 10px;
-      height: 10px;
-      background: #6610f2; /* Tom vermelho semelhante ao da imagem */
-      margin: 0 4px;
-      opacity: 0.6;
-    }
+      <style jsx global>{`
+        .swiper-pagination-bullet {
+          width: 10px;
+          height: 10px;
+          background: #6610f2; /* Tom vermelho semelhante ao da imagem */
+          margin: 0 4px;
+          opacity: 0.6;
+        }
 
-    .swiper-pagination-bullet-active {
-      width: 12px; /* Bullet maior para o ativo */
-      height: 12px;
-      background: #6610f2; /* Cor de destaque para o ativo */
-      opacity: 1;
-    }
-  `}</style>
+        .swiper-pagination-bullet-active {
+          width: 12px; /* Bullet maior para o ativo */
+          height: 12px;
+          background: #6610f2; /* Cor de destaque para o ativo */
+          opacity: 1;
+        }
+      `}</style>
     </div>
   )
 }

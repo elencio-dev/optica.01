@@ -1,29 +1,24 @@
 'use client'
 
-import { useEffect } from "react";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import { Post } from "@/shared/types/Postagens";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { CalendarIcon, RefreshCwIcon } from "lucide-react";
-import Image from "next/image";
-import { usePostsStore } from "@/store/usePostagensStore";
+import { useEffect } from 'react'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
+import { Post } from '@/shared/types/Postagens'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Skeleton } from '@/components/ui/skeleton'
+import { ScrollArea } from '@/components/ui/scroll-area'
+import { CalendarIcon, RefreshCwIcon } from 'lucide-react'
+import Image from 'next/image'
+import { usePostsStore } from '@/store/usePostagensStore'
 
-
-export default function PostPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
-  const { fetchPosts, postsContent } = usePostsStore();
+export default function PostPage({ params }: { params: { slug: string } }) {
+  const { fetchPosts, postsContent } = usePostsStore()
 
   useEffect(() => {
-    fetchPosts("unilabstudentchapter");
-  }, [fetchPosts]);
+    fetchPosts('unilabstudentchapter')
+  }, [fetchPosts])
 
-  const post = postsContent.find((post: Post) => post.slug === params.slug);
+  const post = postsContent.find((post: Post) => post.slug === params.slug)
 
   if (!post) {
     return (
@@ -32,17 +27,16 @@ export default function PostPage({
         <Skeleton className="w-full h-64 mb-6" />
         <Skeleton className="w-full h-96" />
       </div>
-    );
+    )
   }
 
   return (
     <>
-
       <div className="py-8 max-w-7xl mx-auto px-4">
         <Card className="overflow-hidden">
           <CardHeader className="relative h-64 md:h-96">
             <Image
-              src={post.featuredImage?.url || "/placeholder.svg"}
+              src={post.featuredImage?.url || '/placeholder.svg'}
               alt={post.title}
               fill
               className="object-cover"
@@ -63,7 +57,7 @@ export default function PostPage({
               <div className="flex items-center">
                 <RefreshCwIcon className="mr-2 h-4 w-4" />
                 <span>
-                  Última atualização:{" "}
+                  Última atualização:{' '}
                   {new Date(post.updatedAt).toLocaleDateString()}
                 </span>
               </div>
@@ -72,7 +66,7 @@ export default function PostPage({
             <ScrollArea className="h-[calc(100vh-400px)] pr-4">
               <div className="prose prose-sm sm:prose-base lg:prose-lg max-w-none dark:prose-invert">
                 <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                  {post.content.markdown ?? "Conteúdo não disponível."}
+                  {post.content.markdown ?? 'Conteúdo não disponível.'}
                 </ReactMarkdown>
               </div>
             </ScrollArea>
@@ -80,5 +74,5 @@ export default function PostPage({
         </Card>
       </div>
     </>
-  );
+  )
 }

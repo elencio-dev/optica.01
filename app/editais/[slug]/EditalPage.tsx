@@ -12,11 +12,12 @@ import { FileIcon, CalendarIcon, RefreshCwIcon } from 'lucide-react'
 import { Attachment } from '@/shared/types/Edital'
 
 export default function EditalPage({ params }: { params: { slug: string } }) {
-  const { editaisContent, fetchEditais: fetchEditaisFromStore } = useEditaisStore()
+  const { editaisContent, fetchEditais: fetchEditaisFromStore } =
+    useEditaisStore()
 
   const fetchEditais = useCallback(() => {
-    fetchEditaisFromStore();
-  }, [fetchEditaisFromStore]);
+    fetchEditaisFromStore()
+  }, [fetchEditaisFromStore])
 
   useEffect(() => {
     fetchEditais()
@@ -44,7 +45,6 @@ export default function EditalPage({ params }: { params: { slug: string } }) {
 
   return (
     <>
-
       <div className="py-8 max-w-7xl mx-auto px-4">
         <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
           {edital.title}

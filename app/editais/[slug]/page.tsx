@@ -1,10 +1,10 @@
 import { useEditaisStore } from '@/store/useEditaisStore'
 import EditalPage from './EditalPage'
 
-
-
 export const metadata = ({ params }: { params: { slug: string } }) => {
-  const edital = useEditaisStore.getState().editaisContent.find((post) => post.slug === params.slug)
+  const edital = useEditaisStore
+    .getState()
+    .editaisContent.find((post) => post.slug === params.slug)
 
   if (!edital) {
     return {

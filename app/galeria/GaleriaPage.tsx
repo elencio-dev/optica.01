@@ -1,4 +1,5 @@
 'use client'
+
 import '@fancyapps/ui/dist/fancybox/fancybox.css'
 import { graphcms, GALERIA_QUERY } from '@/services/graphcms'
 import { useEffect, useState } from 'react'
@@ -26,7 +27,7 @@ export default function GaleriaPage() {
           await graphcms.request(GALERIA_QUERY)
 
         const fetchedItems = data.galeriasConnection.edges.flatMap((edge) => {
-          // @ts-ignore
+          // @ts-expect-error: A propriedade 'fotoschapter' não existe no tipo 'GaleriaItem
           const fotoschapter = edge.node.fotoschapter
           const identificador = edge.node.identificador
           return Array.isArray(fotoschapter)
@@ -45,7 +46,7 @@ export default function GaleriaPage() {
     }
 
     fetchGaleria()
-    // @ts-ignore
+    // @ts-expect-error: O argumento do tipo 'string' não é atribuível ao parâmetro do tipo 'HTMLElement'.
     Fancybox.bind("[data-fancybox='gallery']", {
       infinite: false,
     })

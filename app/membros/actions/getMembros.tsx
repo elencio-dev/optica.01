@@ -1,8 +1,8 @@
 import { GraphCMSMembersResponse } from '@/shared/types/Membros'
-import { unstable_cache } from 'next/cache'
+import { unstable_cache as unstableCache } from 'next/cache'
 import { graphcms, MEMBROS_QUERY } from '@/services/graphcms'
 
-const getCachedMembros = unstable_cache(
+const getCachedMembros = unstableCache(
   async () => {
     try {
       const data: GraphCMSMembersResponse =

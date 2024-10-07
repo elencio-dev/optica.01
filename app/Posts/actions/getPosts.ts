@@ -1,8 +1,8 @@
-import { unstable_cache } from 'next/cache'
+import { unstable_cache as unstableCache } from 'next/cache'
 import { graphcms, POSTS_QUERY } from '@/services/graphcms'
 import { GraphCMSPostsResponse } from '@/shared/types/Postagens'
 
-const getPosts = unstable_cache(
+const getPosts = unstableCache(
   async (categoryName: string) => {
     try {
       const data: GraphCMSPostsResponse = await graphcms.request(POSTS_QUERY, {
