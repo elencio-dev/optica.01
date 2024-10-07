@@ -1,12 +1,12 @@
-import { GraphQLClient, gql } from 'graphql-request';
+import { GraphQLClient, gql } from 'graphql-request'
 
-const ApiUrl = process.env.NEXT_PUBLIC_GRAPHCMS_URL;
+const ApiUrl = process.env.NEXT_PUBLIC_GRAPHCMS_URL
 
 if (!ApiUrl) {
-  throw new Error('A variável de ambiente não está definida');
+  throw new Error('A variável de ambiente não está definida')
 }
 
-export const graphcms = new GraphQLClient(ApiUrl);
+export const graphcms = new GraphQLClient(ApiUrl)
 
 export const EDITAIS_QUERY = gql`
   query Editais {
@@ -23,16 +23,16 @@ export const EDITAIS_QUERY = gql`
             text
             markdown
           }
-             attachments {
-             fileName
-             size
-             url(transformation: {document: {output: {format: png}}})
+          attachments {
+            fileName
+            size
+            url(transformation: { document: { output: { format: png } } })
           }
         }
       }
     }
   }
-`;
+`
 
 export const POSTS_QUERY = gql`
   query Posts($categoryName: String!) {
@@ -71,24 +71,23 @@ export const POSTS_QUERY = gql`
   }
 `
 
-
 export const MEMBROS_QUERY = gql`
-query MyQuery {
-  membersConnection (first: 100){
-    edges {
-      node {
-        ativo
-        cargo
-        createdAt
-        cvLattes
-        fotoPerfil {
-          url
+  query MyQuery {
+    membersConnection(first: 100) {
+      edges {
+        node {
+          ativo
+          cargo
+          createdAt
+          cvLattes
+          fotoPerfil {
+            url
+          }
+          nome
         }
-        nome
       }
     }
   }
-}
 `
 
 export const GALERIA_QUERY = gql`
@@ -104,12 +103,11 @@ export const GALERIA_QUERY = gql`
       }
     }
   }
-`;
-
+`
 
 export const EDITAL_BY_SLUG_QUERY = gql`
-  query Editais ($slug: String!) {
-    editalConnection (where: { slug: $slug }) {
+  query Editais($slug: String!) {
+    editalConnection(where: { slug: $slug }) {
       edges {
         node {
           createdAt
@@ -123,13 +121,12 @@ export const EDITAL_BY_SLUG_QUERY = gql`
             markdown
           }
           attachments {
-             fileName
-             size
-             url(transformation: {document: {output: {format: png}}})
+            fileName
+            size
+            url(transformation: { document: { output: { format: png } } })
           }
-       
         }
       }
     }
   }
-`;
+`
