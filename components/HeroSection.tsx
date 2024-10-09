@@ -47,7 +47,7 @@ export default function Herosection({ cachedPosts }: CardPostagemProps) {
                 fill
                 quality={100}
                 priority={index === 0}
-                style={{ objectFit: 'cover' }}
+                style={{ objectFit: 'cover', objectPosition: 'center top' }}
               />
               <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-transparent"></div>
 
