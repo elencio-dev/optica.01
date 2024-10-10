@@ -45,8 +45,10 @@ export default function Herosection({ cachedPosts }: CardPostagemProps) {
                 src={slide.featuredImage?.url || '/placeholder.svg'}
                 alt={slide.title}
                 fill
-                quality={100}
+                placeholder="blur"
+                blurDataURL={slide.featuredImage?.url || '/'}
                 priority={index === 0}
+                quality={100}
                 style={{ objectFit: 'cover', objectPosition: 'center top' }}
               />
               <div className="absolute inset-0 bg-gradient-to-r from-black/80 to-transparent"></div>
